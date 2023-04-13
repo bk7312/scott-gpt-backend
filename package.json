@@ -5,8 +5,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "node index.js",
-    "server": "nodemon index.js"
+    "server": "node index.js"
   },
   "keywords": [],
   "author": "",
