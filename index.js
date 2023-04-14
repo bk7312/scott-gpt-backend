@@ -10,12 +10,8 @@ const app = express()
 const openai = new OpenAIApi(new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 }))
-const corsOptions = {
-  origin: 'https://scott-gpt.vercel.app/',
-  optionsSuccessStatus: 200
-}
 
-app.use(cors(corsOptions))
+app.use(cors())
 app.use(express.json())
 
 app.get('/', async (req, res) => {
