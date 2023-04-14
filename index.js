@@ -12,10 +12,23 @@ const openai = new OpenAIApi(new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 }))
 
+const allowedOrigins = ['https://scott-gpt.vercel.app/'];
 const corsOptions = {
-  origin: 'https://scott-gpt.vercel.app/',
-  optionsSuccessStatus: 200
-}
+  origin: function (origin, callback) {
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+};
+
+app.use(cors(corsOptions));
+
+app.use((req, res, next) => {
+  res.setHeader('Vary', 'Origin');
+  next();
+});
 
 app.use(express.json())
 
@@ -25,7 +38,7 @@ app.get('/', async (req, res) => {
   })
 })
 
-app.post('/', cors(corsOptions), async (req, res) => {
+app.post('/', async (req, res) => {
     const model = "gpt-3.5-turbo"
     const messages = req.body
   try {
