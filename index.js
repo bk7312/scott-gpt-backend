@@ -5,13 +5,17 @@ import { Configuration, OpenAIApi } from 'openai'
 
 dotenv.config()
 
+const port = 3000
+const app = express()
 const openai = new OpenAIApi(new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 }))
+const corsOptions = {
+  origin: 'https://scott-gpt.vercel.app/',
+  optionsSuccessStatus: 200
+}
 
-const port = 3000
-const app = express()
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(express.json())
 
 app.get('/', async (req, res) => {
