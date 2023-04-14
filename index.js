@@ -7,11 +7,16 @@ dotenv.config()
 
 const port = 3000
 const app = express()
+
 const openai = new OpenAIApi(new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 }))
 
-app.use(cors())
+const corsOptions = {
+  origin: 'http://example.com',
+  optionsSuccessStatus: 200
+}
+
 app.use(express.json())
 
 app.get('/', async (req, res) => {
@@ -20,7 +25,7 @@ app.get('/', async (req, res) => {
   })
 })
 
-app.post('/', async (req, res) => {
+app.post('/', cors(corsOptions), async (req, res) => {
     const model = "gpt-3.5-turbo"
     const messages = req.body
   try {
