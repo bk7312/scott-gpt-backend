@@ -13,7 +13,7 @@ const openai = new OpenAIApi(new Configuration({
 }))
 
 const corsOptions = {
-  origin: 'http://example.com',
+  origin: 'https://scott-gpt.vercel.app/',
   optionsSuccessStatus: 200
 }
 
