@@ -12,24 +12,7 @@ const openai = new OpenAIApi(new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 }))
 
-const allowedOrigins = ['https://scott-gpt.vercel.app/'];
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  }
-};
-
-app.use(cors(corsOptions));
-
-app.use((req, res, next) => {
-  res.setHeader('Vary', 'Origin');
-  next();
-});
-
+app.use(cors());
 app.use(express.json())
 
 app.get('/', async (req, res) => {
